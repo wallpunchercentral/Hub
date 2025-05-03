@@ -3,94 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Portal</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>WallPuncherCentral</title>
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <header class="header">
-        <nav class="nav-container">
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <path d="M16 2L2 9V23L16 30L30 23V9L16 2Z" fill="#ff7f7f"/>
-                    <path d="M16 8L8 12V20L16 24L24 20V12L16 8Z" fill="#1e1f26"/>
-                </svg>
-                WebLFG
-            </div>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search a game or tag">
-            </div>
-            <ul class="nav-links">
+<body class="locked">
+    <header>
+        <h1>WallPuncherCentral</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#games">Games</a></li>
-                <li><a href="#server">Server</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Free games<br><span>all in one place</span></h1>
-                <p>From internet classics to present-day favorites, it's online entertainment right at your fingertips.</p>
-                <a href="#games" class="cta-button">Start Playing Now</a>
-            </div>
-        </section>
-
-        <section id="games" class="games">
-            <h2>Today's Picks</h2>
-            <p class="subtitle">Resets in 23:41:11</p>
-            <div class="game-grid">
-                <!-- Game cards will be added here -->
-                <div class="game-card">
-                    <div class="game-thumbnail"></div>
-                    <h3>Game 1</h3>
-                    <p>Action-packed adventure</p>
-                </div>
-                <div class="game-card">
-                    <div class="game-thumbnail"></div>
-                    <h3>Game 2</h3>
-                    <p>Strategy masterpiece</p>
-                </div>
-                <div class="game-card">
-                    <div class="game-thumbnail"></div>
-                    <h3>Game 3</h3>
-                    <p>Puzzle challenge</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="server" class="server">
-            <h2>Server Status</h2>
-            <div class="server-info">
-                <div class="server-status">
-                    <i class="fas fa-server"></i>
-                    <h3>Main Server</h3>
-                    <p class="status-badge online">Online</p>
-                    <p>Players: 100/500</p>
-                </div>
-                <div class="server-stats">
-                    <div class="stat">
-                        <i class="fas fa-users"></i>
-                        <p>Active Users</p>
-                        <h4>1,234</h4>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-gamepad"></i>
-                        <p>Games Available</p>
-                        <h4>50+</h4>
-                    </div>
-                </div>
-            </div>
+        <section id="home">
+            <h2>Welcome to WallPuncherCentral</h2>
+            <p>"I got a lobotomy at claires" - sung zu the art of war</p>
         </section>
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2024 Template Site. All rights reserved.</p>
+    <footer>
+        <p>&copy; 2025 WallPuncherCentral. All rights reserved.</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <div class="login-overlay">
+        <div class="login-container">
+            <h2>Enter Password</h2>
+            <input type="password" id="password-input" placeholder="Enter password">
+            <button id="submit-password">Submit</button>
+            <div class="error-message"></div>
+        </div>
+    </div>
     <script src="js/login.js"></script>
 </body>
 </html>
