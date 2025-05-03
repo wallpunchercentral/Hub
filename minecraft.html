@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Server | Wall Puncher Central</title>
+    <style>
+        :root {
+            --dark-red: #8B0000;
+            --pink: #FF69B4;
+            --bg-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --card-bg: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, var(--dark-red), var(--pink));
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .minecraft-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 2rem 0;
+            background: linear-gradient(45deg, var(--dark-red), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .server-info {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .server-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+        }
+
+        .server-address {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 1rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            color: var(--pink);
+            margin-bottom: 1rem;
+        }
+
+        .rules-list {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .rules-list ul {
+            list-style-position: inside;
+            margin-top: 1rem;
+        }
+
+        .rules-list li {
+            margin: 0.5rem 0;
+        }
+
+        .modpack-section {
+            margin: 2rem 0;
+        }
+
+        .modpack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .modpack-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .modpack-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .modpack-title {
+            color: var(--pink);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modpack-description {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--dark-red), var(--pink));
+            color: var(--text-light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modpack-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        if (localStorage.getItem('authenticated') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="minecraft.html">Minecraft</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="minecraft-container">
+        <h1 class="section-title">Minecraft Server</h1>
+        <div class="rules-list">
+            <h2>Server Rules</h2>
+            <ul>
+                <li>Griefing actually good builds is lame, don't.</li>
+                <li>If you kill someone, return their items, otherwise, they are allowed to give 1 painful act towards you (griefing, trapping, etc.)</li>
+                <li>No lag machines (unless you want to pay $600 to buy Dylan a new laptop)</li>
+                <li>Don't Steal (Or return the amount stolen/ more than what you took in 3-4 business days)</li>
+                <li>Don't be a Hobo, make a permanent base</li>
+                <li>Elytras are limited. A player may only own 3 at a time. (1 Main Set, 2 Backups)</li>
+                <li>Streaming this server is allowed, but tell everyone first</li>
+                <li>There is No Base Currency, Use what you like, or simply trade materials. Welcome to True Economism</li>
+                <li>People in the server get grounded frequently, if you have business with them, please be patient. do not use this as an excuse if you are not actually grounded</li>
+            </ul>
+
+            <h2 style="margin-top: 2rem;">Rules of Courtesy</h2>
+            <p style="margin-bottom: 1rem;">These Rules are not required, but they are nice things to do:</p>
+            <ul>
+                <li>If possible, when looting a structure (if it has an entrance), please place a marker</li>
+                <li>If you create a shop/public building, make an announcement on the classroom</li>
+                <li>No Gooning whilst playing minecraft, this is a server, not the hub</li>
+                <li>If you have a request, place it on the quest board at spawn (be prepared to do a favor in return)</li>
+                <li>If you have mod suggestions, please tell us, this server needs to be as good as it can</li>
+            </ul>
+        </div>
+
+        <div class="modpack-section">
+            <h2 class="section-title">Modpacks</h2>
+            <div class="modpack-grid">
+                <div class="modpack-card">
+                    <h3 class="modpack-title">Adventure Pack</h3>
+                    <p class="modpack-description">Explore vast landscapes and embark on epic quests with this carefully curated collection of adventure mods.</p>
+                    <a href="https://example.com/adventure-pack" class="download-btn">Download Adventure Pack</a>
+                </div>
+                <div class="modpack-card">
+                    <h3 class="modpack-title">Tech Revolution</h3>
+                    <p class="modpack-description">Build advanced machines and automate your world with this technology-focused modpack.</p>
+                    <a href="https://example.com/tech-pack" class="download-btn">Download Tech Pack</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
