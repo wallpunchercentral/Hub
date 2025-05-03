@@ -150,7 +150,7 @@
     <div class="contact-container">
         <h1 class="section-title">Contact Us</h1>
         
-        <form class="contact-form" action="mailto:wallpunchercentral@outlook.com" method="POST" enctype="text/plain">
+        <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -171,8 +171,49 @@
                 <textarea id="message" name="message" required></textarea>
             </div>
             
+            <input type="hidden" name="csrf_token" id="csrf_token">
             <button type="submit" class="submit-btn">Send Message</button>
+            <div id="formStatus" style="margin-top: 1rem; text-align: center;"></div>
         </form>
+
+        <script>
+            async function submitForm(event) {
+                event.preventDefault();
+                const form = document.getElementById('contactForm');
+                const formStatus = document.getElementById('formStatus');
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('process_contact.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        formStatus.style.color = 'var(--pink)';
+                        formStatus.textContent = result.message;
+                        form.reset();
+                    } else {
+                        formStatus.style.color = 'red';
+                        formStatus.textContent = result.error;
+                    }
+                } catch (error) {
+                    formStatus.style.color = 'red';
+                    formStatus.textContent = 'An error occurred. Please try again later.';
+                }
+            }
+
+            // Fetch CSRF token when page loads
+            fetch('process_contact.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.csrf_token) {
+                        document.getElementById('csrf_token').value = data.csrf_token;
+                    }
+                });
+        </script>
 
 
     </div>
