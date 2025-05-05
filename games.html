@@ -73,6 +73,9 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .game-card:hover {
@@ -86,6 +89,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px;
+        }
+
+        .game-image .fallback-text {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1;
         }
 
         .game-content {
@@ -140,37 +163,81 @@
         </ul>
     </nav>
 
+    <script>
+        // Game data with titles, descriptions, links, and image paths
+        const games = [
+            {
+                title: 'Game Title 1',
+                description: 'Experience an amazing adventure in this action-packed game.',
+                link: '#game1-link',
+                imagePath: 'games_titlecards/game1.jpg'
+            },
+            {
+                title: 'Game Title 2',
+                description: 'Explore vast worlds and complete epic quests.',
+                link: '#game2-link',
+                imagePath: 'games_titlecards/game2.jpg'
+            },
+            {
+                title: 'Game Title 3',
+                description: 'Challenge yourself in this competitive multiplayer game.',
+                link: '#game3-link',
+                imagePath: 'games_titlecards/game3.jpg'
+            },
+            {
+                title: 'Game Title 4',
+                description: 'Build and create in this sandbox environment.',
+                link: '#game4-link',
+                imagePath: 'games_titlecards/game4.jpg'
+            }
+        ];
+
+        // Function to check if an image exists
+        function imageExists(imagePath) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = imagePath;
+            });
+        }
+
+        // Function to create game cards
+        async function createGameCards() {
+            const gamesGrid = document.querySelector('.games-grid');
+            gamesGrid.innerHTML = '';
+
+            for (const game of games) {
+                const hasImage = await imageExists(game.imagePath);
+                const gameCard = document.createElement('a');
+                gameCard.href = game.link;
+                gameCard.className = 'game-card';
+                
+                gameCard.innerHTML = `
+                    <div class="game-image">
+                        ${hasImage 
+                            ? `<img src="${game.imagePath}" alt="${game.title}">` 
+                            : `<div class="fallback-text">${game.title}</div>`
+                        }
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">${game.title}</h3>
+                        <p class="game-description">${game.description}</p>
+                    </div>
+                `;
+
+                gamesGrid.appendChild(gameCard);
+            }
+        }
+
+        // Initialize the game cards when the page loads
+        window.addEventListener('load', createGameCards);
+    </script>
+
     <div class="games-container">
         <h1 class="section-title">Featured Games</h1>
         <div class="games-grid">
-            <div class="game-card">
-                <div class="game-image">Game 1</div>
-                <div class="game-content">
-                    <h3 class="game-title">Game Title 1</h3>
-                    <p class="game-description">Experience an amazing adventure in this action-packed game.</p>
-                </div>
-            </div>
-            <div class="game-card">
-                <div class="game-image">Game 2</div>
-                <div class="game-content">
-                    <h3 class="game-title">Game Title 2</h3>
-                    <p class="game-description">Explore vast worlds and complete epic quests.</p>
-                </div>
-            </div>
-            <div class="game-card">
-                <div class="game-image">Game 3</div>
-                <div class="game-content">
-                    <h3 class="game-title">Game Title 3</h3>
-                    <p class="game-description">Challenge yourself in this competitive multiplayer game.</p>
-                </div>
-            </div>
-            <div class="game-card">
-                <div class="game-image">Game 4</div>
-                <div class="game-content">
-                    <h3 class="game-title">Game Title 4</h3>
-                    <p class="game-description">Build and create in this sandbox environment.</p>
-                </div>
-            </div>
+            <!-- Game cards will be dynamically inserted here -->
         </div>
     </div>
 </body>
