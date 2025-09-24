@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Game Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Password Protection -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-container">
+            <h2>ACCESS REQUIRED</h2>
+            <input type="text" class="password-input" id="usernameInput" placeholder="Username" autocomplete="username">
+            <input type="password" class="password-input" id="passwordInput" placeholder="Password" autocomplete="current-password">
+            <button class="password-btn" onclick="checkPassword()">ENTER</button>
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- Main Site -->
+    <div id="mainSite" style="display: none;">
+        <header class="header">
+            <h1>HTML5 GAME HUB</h1>
+            <p>Your collection of awesome HTML5 games</p>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchBar" placeholder="Search games..." oninput="filterGames()">
+        </div>
+
+        <main class="main-content">
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be loaded here -->
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 HTML5 Game Hub - Built for Fun!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
