@@ -1,0 +1,6 @@
+{ name: "jello-tetrix", folder: "jello-tetrix/code" }
+{ name: "panelflux", folder: "panelflux/code" }
+{ name: "rhythm-plus", folder: "rhythm-plus/code" }
+{ name: "rolldown", folder: "rolldown/code" }
+{ name: "slope-plus", folder: "slope-plus/code" }
+{ name: "template", folder: "template/code" }

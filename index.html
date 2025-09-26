@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Wall Punchers Central</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+@font-face {
+  font-family: 'VT323Local';
+  src: url('assets/VT323-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+html,body{height:100%;margin:0;background:#000;color:#fff;font-family:'VT323Local', monospace;overflow:hidden;}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;}
+.game-card {
+  cursor:pointer;
+  background:#111;
+  padding:0.5rem;
+  border:1px solid #333;
+  border-radius:6px;
+  transition: transform 0.2s;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.game-card:hover{transform: scale(1.03);}
+.game-card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:4px;
+  display:block;
+}
+.game-card h3{
+  margin:0.5rem 0 0 0;
+  flex-shrink:0;
+  width:100%;
+  text-align:center;
+}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:1000;}
+.modal{background:#111;padding:2rem;border-radius:8px;border:1px solid #333;width:300px;text-align:center;}
+.modal input{width:100%;margin:0.5rem 0;padding:0.5rem;background:#222;border:1px solid #333;color:#fff;}
+.modal button{padding:0.5rem 1rem;background:#333;border:none;color:#fff;cursor:pointer;}
+.error{color:#f33;margin-top:0.5rem;font-size:0.9rem;}
+.search-row{margin-bottom:1rem;}
+.search-row input{width:100%;padding:0.5rem;background:#222;border:1px solid #333;color:#fff;border-radius:4px;}
+</style>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div id="login-overlay" class="overlay" aria-hidden="true">
+  <div class="modal">
+    <h2>Login</h2>
+    <input id="login-username" placeholder="Username" autocomplete="username">
+    <input id="login-password" type="password" placeholder="Password" autocomplete="current-password">
+    <div class="actions"><button id="login-btn">Login</button></div>
+    <p id="login-error" class="error" aria-live="polite"></p>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="title-row">
+      <div>
+        <h1 class="site-title">Wall Punchers Central</h1>
+        <div class="site-sub">developed by p4rge_</div>
+      </div>
+      <nav class="main-nav" role="navigation">
+        <button id="logout-btn" class="nav-btn small">Logout</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="main-content" style="display:none;">
+  <div class="search-row">
+    <input id="game-search" placeholder="Search games A-Z">
+  </div>
+  <div id="games-list" class="games-grid"></div>
+</main>
+
+<footer class="site-footer"><div class="wrap"><small>Wall Punchers Central — offline local launcher</small></div></footer>
+
+<script>
+// ====== Games array ======
+const games = [
+  { name: "jello-tetrix", folder: "jello-tetrix/code" },
+  { name: "panelflux", folder: "panelflux/code" },
+  { name: "rhythm-plus", folder: "rhythm-plus/code" },
+  { name: "rolldown", folder: "rolldown/code" },
+  { name: "slope-plus", folder: "slope-plus/code" },
+  { name: "template", folder: "template/code" }
+
+];
+
+// ====== Render all cards ONCE ======
+const container = document.getElementById('games-list');
+games.forEach(game => {
+  const card = document.createElement('div');
+  card.className = 'game-card';
+  const imgSrc = `games/${game.folder}/image.png`;
+  card.innerHTML = `
+    <img src="${imgSrc}" alt="${game.name}" onerror="this.src='assets/default.png';">
+    <h3>${game.name}</h3>
+  `;
+  card.dataset.name = game.name.toLowerCase();
+  card.addEventListener('click', () => {
+    // Fullscreen functionality: replace current page with game's index.html
+    window.location.href = `games/${game.folder}/index.html`;
+  });
+  container.appendChild(card);
+});
+
+// ====== Search just hides/shows cards ======
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('game-search');
+  searchInput.addEventListener('input', () => {
+    const term = searchInput.value.toLowerCase();
+    container.childNodes.forEach(card => {
+      card.style.display = card.dataset.name.includes(term) ? 'flex' : 'none';
+    });
+  });
+});
+
+// ====== Offline login ======
+const loginOverlay = document.getElementById('login-overlay');
+const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
+const loginError = document.getElementById('login-error');
+const mainContent = document.getElementById('main-content');
+
+const USERS = [
+  { username: "tess", password: "tickles" }
+];
+
+function showLogin() {
+  loginOverlay.style.display = 'flex';
+  mainContent.style.display = 'none';
+}
+function hideLogin() {
+  loginOverlay.style.display = 'none';
+  mainContent.style.display = 'block';
+}
+
+loginBtn.addEventListener('click', () => {
+  const username = document.getElementById('login-username').value;
+  const password = document.getElementById('login-password').value;
+  const valid = USERS.some(u => u.username === username && u.password === password);
+  if(valid){
+    hideLogin();
+    loginError.textContent = '';
+  } else {
+    loginError.textContent = 'Invalid username or password';
+  }
+});
+
+logoutBtn.addEventListener('click', showLogin);
+
+// ====== Init ======
+document.addEventListener('DOMContentLoaded', showLogin);
+</script>
+</body>
+</html>
